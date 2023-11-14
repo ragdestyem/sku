@@ -40,6 +40,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: ragdestyem/manifest_k8s
+          token: ${{ secrets.PAT_TOKEN}}
         
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
@@ -58,7 +59,6 @@ jobs:
         run: |
           git config --local user.email "uppaplicativo@gmail.com"
           git config --local user.name "carlos"
-          git config --local user.password ${{ secrets.PAT_TOKEN }}
           git commit -am "Bump docker version"
           git pull --rebase
           git push

@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "developed" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "developed" ]
+    branches: [ "main" ]
 
 jobs:
   build:

@@ -35,7 +35,7 @@ jobs:
   deploy-dev:
     needs:
       - build
-      
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -61,6 +61,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "Github Action"
           git commit -am "Bump docker version"
-          git pull --rebase
           git push
 

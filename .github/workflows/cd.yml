@@ -35,13 +35,11 @@ jobs:
   deploy-dev:
     needs:
       - build
-
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           repository: ragdestyem/manifest_k8s
-          token: ${{secrets.GITHUB_TOKEN}}
         
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
@@ -61,5 +59,9 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "Github Action"
           git commit -am "Bump docker version"
-          git push
 
+      - name: push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ragdestyem/manifest_k8s

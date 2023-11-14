@@ -28,6 +28,7 @@ jobs:
       with:
         push: true
         tags: ${{secrets.DOCKERHUB_USERNAME}}/app:${{github.sha}}, ${{secrets.DOCKERHUB_USERNAME}}/app:lasted
+
     - name: Setup Kustomize
       uses: imranismail/setup-kustomize@v1
       with:
@@ -36,7 +37,8 @@ jobs:
       env: 
         DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
       run:
-        cd manifests && kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA
+        kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA
+        
     - name: Commit
       run: |
         git config --local user.email "action@github.com"
@@ -46,4 +48,4 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        repository: ragdestyem/sku
+        repository: ragdestyem/manifest_k8s

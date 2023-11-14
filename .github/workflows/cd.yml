@@ -29,24 +29,37 @@ jobs:
         push: true
         tags: ${{secrets.DOCKERHUB_USERNAME}}/app:${{github.sha}}, ${{secrets.DOCKERHUB_USERNAME}}/app:lasted
 
-    - name: Setup Kustomize
-      uses: imranismail/setup-kustomize@v1
-      with:
-        kustomize-version: "3.6.1"
-    - name: Update Kubernets resources
-      env: 
-        DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-      run:
-        kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA
-      working-directory: ragdestyem/manifest_k8s
+
+
+
+  deploy-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: ragdestyem/manifest_k8s
         
-    - name: Commit
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "Github Action"
-        git commit -am "Bump docker version"
-    - name: push
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        repository: ragdestyem/manifest_k8s
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+        with:
+          kustomize-version: "3.6.1"
+
+      - name: Update Kubernets resources
+        env: 
+          DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+
+    
+        run:
+          kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA
+        working-directory: ragdestyem/manifest_k8s
+          
+      - name: Commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Github Action"
+          git commit -am "Bump docker version"
+      - name: push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ragdestyem/manifest_k8s

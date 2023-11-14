@@ -39,7 +39,8 @@ jobs:
       env: 
         DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
       run:
-        cd manifest_k8s && kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA
+        cd manifest_k8s
+        kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA
         git add .
         git commit -m "Update Kubernetes resources"
         git push origin main

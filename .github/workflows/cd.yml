@@ -56,8 +56,8 @@ jobs:
           
       - name: Commit
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "Github Action"
+          git config --local user.email "uppaplicativo@gmail.com"
+          git config --local user.name "carlos"
           git commit -am "Bump docker version"
 
 

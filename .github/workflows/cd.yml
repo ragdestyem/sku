@@ -38,6 +38,7 @@ jobs:
         DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
       run:
         kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA
+      working-directory: ragdestyem/manifest_k8s
         
     - name: Commit
       run: |

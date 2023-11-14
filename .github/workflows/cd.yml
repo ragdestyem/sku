@@ -58,13 +58,8 @@ jobs:
         run: |
           git config --local user.email "uppaplicativo@gmail.com"
           git config --local user.name "carlos"
+          git config --local user.password ${{ secrets.PAT_TOKEN }}
           git commit -am "Bump docker version"
-
-
-      - name: push
-        uses: ad-m/github-push-action@master
-        with: 
-          branch: main
-          repository: ragdestyem/manifest_k8s
-          github_token: ${{ secrets.PAT_TOKEN }}
+          git pull --rebase
+          git push
 

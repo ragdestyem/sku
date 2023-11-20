@@ -41,4 +41,34 @@ jobs:
         push: true
         tags: ${{secrets.DOCKERHUB_USERNAME}}/app:${{github.sha}}, ${{secrets.DOCKERHUB_USERNAME}}/app:lasted
 
+  deploy-dev:
+    needs:
+      - generate_image_main
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ragdestyem/manifest_k8s
+          token: ${{ secrets.PAT_TOKEN}}
+        
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+        with:
+          kustomize-version: "3.6.1"
+
+      - name: Update Kubernets resources
+        env: 
+          DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+
+    
+        run:
+          kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA --path k8s/SKU
+          
+      - name: Commit
+        run: |
+          git config --local user.email "uppaplicativo@gmail.com"
+          git config --local user.name "carlos"
+          git commit -am "Bump docker version"
+          git pull --rebase
+          git push
 

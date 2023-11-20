@@ -34,7 +34,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: ragdestyem/project_armazem
-          path: k8s/SKU
+          sparse-checkout: |
+            .k8s.SKU
           token: ${{ secrets.PAT_TOKEN}}
 
       - name: Setup Kustomize

@@ -5,22 +5,7 @@ on:
     branches:
       - main
 jobs:
-  check-application_main:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    - name: Install dependencies
-      run: npm install
-    - name: Build NestJS app
-      run: npm run build  # ajuste o comando de build conforme sua configuração
-
   generate_image_main:
-    needs:
-      - check-application_main
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -50,6 +35,7 @@ jobs:
         with:
           repository: ragdestyem/manifest_k8s
           token: ${{ secrets.PAT_TOKEN}}
+          path: k8s/SKU
         
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
@@ -59,8 +45,6 @@ jobs:
       - name: Update Kubernets resources
         env: 
           DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-
-    
         run:
           kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA --path k8s/SKU
           

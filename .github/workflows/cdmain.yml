@@ -15,7 +15,7 @@ jobs:
 
       - name: Listar arquivos e pastas após o checkout
         run: |
-          cd kong
+          cd k8s
           ls -la
 
 

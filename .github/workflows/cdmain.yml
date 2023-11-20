@@ -46,7 +46,7 @@ jobs:
           DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
         
         run:
-          (cd k8s/SKU && kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA)
+          (cd https://github.com/ragdestyem/project_armazem/tree/main/ks8/SKU && kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA)
           
           
       - name: Commit

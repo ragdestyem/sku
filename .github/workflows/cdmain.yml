@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: ragdestyem/manifest_k8s
+          repository: ragdestyem/project_armazem
           token: ${{ secrets.PAT_TOKEN}}
 
       - name: Navigate to k8s/SKU directory

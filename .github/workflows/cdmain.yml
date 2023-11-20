@@ -34,8 +34,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: ragdestyem/project_armazem
-          sparse-checkout: |
-            .k8s.SKU
           token: ${{ secrets.PAT_TOKEN}}
 
       - name: Setup Kustomize
@@ -48,7 +46,7 @@ jobs:
           DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
         
         run:
-          kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA
+          kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA && kustomize build k8s/SKU
           
           
       - name: Commit

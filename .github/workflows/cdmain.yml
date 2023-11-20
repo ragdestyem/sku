@@ -35,7 +35,9 @@ jobs:
         with:
           repository: ragdestyem/manifest_k8s
           token: ${{ secrets.PAT_TOKEN}}
-          path: k8s/SKU
+
+      - name: Navigate to k8s/SKU directory
+        run: cd k8s/SKU
         
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
@@ -45,6 +47,7 @@ jobs:
       - name: Update Kubernets resources
         env: 
           DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+        
         run:
           kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA
           

@@ -46,7 +46,7 @@ jobs:
         env: 
           DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
         run:
-          kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA --path k8s/SKU
+          kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA
           
       - name: Commit
         run: |

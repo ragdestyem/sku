@@ -10,7 +10,7 @@ generator client {
 
 model Sku {
   sku    String   @id
-  descricao String  @unique
+  descricao String 
   codean  String?
   coddum  String?
 }

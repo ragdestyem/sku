@@ -33,10 +33,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: ragdestyem/manifest_k8s
+          repository: ragdestyem/project_armazem
           token: ${{ secrets.PAT_TOKEN}}
-          path: k8s/SKU
-        
+
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
         with:
@@ -45,8 +44,10 @@ jobs:
       - name: Update Kubernets resources
         env: 
           DOCKER_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+        
         run:
-          kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA
+          (cd ks8/SKU && kustomize edit set image sku=$DOCKER_USERNAME/app:$GITHUB_SHA)
+          
           
       - name: Commit
         run: |

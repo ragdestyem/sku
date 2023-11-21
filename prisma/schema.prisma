@@ -23,14 +23,14 @@ model Product {
   boxHeight Float?
   boxLength Float?
   boxWidth Float?
-  category Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
+  category Category ?  @relation(fields: [categoryId], references: [id])
+  categoryId Int ?
   price Price?
 }
 
 model Category {
   id    Int      @id @default(autoincrement())
-  name  String
+  name  String @unique
   descricao String?
   sku Product[]
 }

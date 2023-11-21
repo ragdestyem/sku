@@ -13,9 +13,9 @@ export class ProductService {
     return this.prisma.product.create({data: createProductDto})
   }
 
-  findAll(page = 1, pageSize = 10) {
-    const skip = (page - 1) * pageSize;
-    const take = pageSize;
+  findAll(page:number = 1, pageSize:number = 10) {
+    const skip:number = (page - 1) * pageSize;
+    const take:number = pageSize;
     return this.prisma.product.findMany({ skip, take });
   }
   

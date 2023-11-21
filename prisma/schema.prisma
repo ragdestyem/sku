@@ -8,10 +8,38 @@ generator client {
 }
 
 
-model Sku {
+model Product {
   sku    String   @id
   descricao String 
-  codean  String?
-  coddum  String?
+  ean  String?
+  dum  String?
+  unPerBox Int?
+  boxPerPallet Int?
+  boxPerLatro Int?
+  latroPerPallet Int?
+  shelf Int?
+  weightPerBox Float?
+  weightPerUnit Float?
+  boxHeight Float?
+  boxLength Float?
+  boxWidth Float?
+  category Category[]
+  price Price?
 }
+
+model Category {
+  id    Int      @id @default(autoincrement())
+  name  String
+  descricao String?
+  sku Product @relation(fields: [skuId], references: [sku])
+  skuId String
+}
+
+model Price {
+  id    Int      @id @default(autoincrement())
+  sku Product? @relation(fields: [skuId], references: [sku])
+  skuId String? @unique
+  price String
+}
+
 

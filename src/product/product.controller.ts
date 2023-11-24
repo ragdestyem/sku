@@ -14,8 +14,8 @@ export class ProductController {
   }
 
   @Get()
-  findAll(@Query('take') take: string, @Query('skip') skip: string) {
-    return this.productService.findAll(+take, +skip);
+  findAll() {
+    return this.productService.findAll();
   }
 
   @Get(':id')

@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/service';
 import { Product } from '@prisma/client';
 
@@ -13,10 +11,9 @@ export class ProductService {
     return this.prisma.product.create({data: createProductDto})
   }
 
-  findAll(page:number = 1, pageSize:number = 10) {
-    const skip:number = (page - 1) * pageSize;
-    const take:number = pageSize;
-    return this.prisma.product.findMany({ skip, take });
+  findAll() {
+    return this.prisma.product.findMany();
+
   }
   
 

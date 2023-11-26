@@ -3,12 +3,22 @@ import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { Product } from '@prisma/client';
 import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('product')
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
+  @ApiOperation({ summary: 'criar sku' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   create(@Body() createProductDto: Product) {
     return this.productService.create(createProductDto);
   }

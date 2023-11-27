@@ -18,16 +18,30 @@ export class ProductController {
 
   @Post()
   @ApiOperation({ summary: 'criar sku' })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({ 
+    status: 200,
+    description: 'Requisição bem-sucedida',
+    type:CreateProductDto
+  })
   create(@Body() createProductDto: Product) {
     return this.productService.create(createProductDto);
   }
 
+  @ApiResponse({ 
+    status: 200,
+    description: 'Requisição bem-sucedida',
+    type:[CreateProductDto]
+  })
   @Get()
   findAll() {
     return this.productService.findAll();
   }
 
+  @ApiResponse({ 
+    status: 200,
+    description: 'Requisição bem-sucedida',
+    type:CreateProductDto
+  })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productService.findOne(id);
